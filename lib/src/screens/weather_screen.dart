@@ -19,7 +19,7 @@ class WeatherScreen extends StatefulWidget {
 
 class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateMixin {
   late WeatherBloc _weatherBloc;
-  String? _cityName = 'bengaluru';
+  String? _cityName = 'Awka';
   late Animation<double> _fadeAnimation;
   late AnimationController _fadeController;
 
@@ -66,21 +66,22 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
           ),
           actions: <Widget>[
             PopupMenuButton<OptionsMenu>(
-                child: Icon(
-                  Icons.more_vert,
-                  color: appTheme?.colorScheme.secondary,
+              child: Icon(
+                Icons.more_vert,
+                color: appTheme?.colorScheme.secondary,
+              ),
+              onSelected: this._onOptionMenuItemSelected,
+              itemBuilder: (context) => <PopupMenuEntry<OptionsMenu>>[
+                PopupMenuItem<OptionsMenu>(
+                  value: OptionsMenu.changeCity,
+                  child: Text("Change city"),
                 ),
-                onSelected: this._onOptionMenuItemSelected,
-                itemBuilder: (context) => <PopupMenuEntry<OptionsMenu>>[
-                      PopupMenuItem<OptionsMenu>(
-                        value: OptionsMenu.changeCity,
-                        child: Text("change city"),
-                      ),
-                      PopupMenuItem<OptionsMenu>(
-                        value: OptionsMenu.settings,
-                        child: Text("settings"),
-                      ),
-                    ])
+                PopupMenuItem<OptionsMenu>(
+                  value: OptionsMenu.settings,
+                  child: Text("Settings"),
+                ),
+              ],
+            )
           ],
         ),
         backgroundColor: Colors.white,
@@ -112,31 +113,38 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
                       Icon(
                         Icons.error_outline,
                         color: Colors.redAccent,
-                        size: 24,
+                        size: 48,
                       ),
                       SizedBox(
                         height: 10,
                       ),
                       Text(
                         errorText,
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.red,
                         ),
                       ),
-                      TextButton(
-                        style: TextButton.styleFrom(
-                          foregroundColor: appTheme?.colorScheme.secondary,
-                          elevation: 1,
+                      Padding(
+                        padding: EdgeInsets.all(14),
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            foregroundColor: appTheme?.colorScheme.secondary,
+                            elevation: 1,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(14),
+                            child: Text("Try Again"),
+                          ),
+                          onPressed: _fetchWeatherWithCity,
                         ),
-                        child: Text("Try Again"),
-                        onPressed: _fetchWeatherWithCity,
-                      )
+                      ),
                     ],
                   );
                 } else if (weatherState is WeatherLoading) {
                   return Center(
                     child: CircularProgressIndicator(
-                      backgroundColor: appTheme?.primaryColor,
+                      backgroundColor: appTheme?.colorScheme.secondary,
                     ),
                   );
                 }

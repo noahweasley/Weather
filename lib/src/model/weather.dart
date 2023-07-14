@@ -62,14 +62,16 @@ class Weather {
     final weathers = <Weather>[];
 
     for (final item in json['list']) {
-      weathers.add(Weather(
-          time: item['dt'],
-          temperature: Temperature(
-            intToDouble(
-              item['main']['temp'],
+      weathers.add(
+        Weather(
+            time: item['dt'],
+            temperature: Temperature(
+              intToDouble(
+                item['main']['temp'],
+              ),
             ),
-          ),
-          iconCode: item['weather'][0]['icon']));
+            iconCode: item['weather'][0]['icon']),
+      );
     }
     return weathers;
   }

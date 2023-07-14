@@ -37,6 +37,7 @@ class WeatherApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Weather App',
       theme: AppStateContainer.of(context)?.theme,
       home: BlocProvider(

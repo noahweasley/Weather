@@ -10,8 +10,19 @@ class SettingsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          iconSize: 24,
+          color: appTheme?.colorScheme.secondary,
+          onPressed: () => Navigator.pop(context),
+        ),
         backgroundColor: appTheme?.primaryColor,
-        title: Text("Settings"),
+        title: Text(
+          "Settings",
+          style: TextStyle(
+            color: appTheme?.colorScheme.secondary,
+          ),
+        ),
       ),
       body: Container(
         padding: EdgeInsets.only(left: 10, right: 10, top: 15),
@@ -147,8 +158,8 @@ class SettingsScreen extends StatelessWidget {
             ),
             Container(
               decoration: BoxDecoration(
+                color: AppStateContainer.of(context)?.theme.colorScheme.secondary.withOpacity(0.1),
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8)),
-                color: AppStateContainer.of(context)?.theme.primaryColor.withOpacity(0.1),
               ),
               padding: EdgeInsets.only(left: 10, right: 10),
               child: Row(
