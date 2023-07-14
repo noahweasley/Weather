@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# Weather-App
-A weather app built using Flutter
-=======
 # Flutter Weather
 
 A Flutter application to view current weather status.
@@ -53,4 +49,3 @@ class ApiKey {
 
 - [Weather Icon Pack](https://erikflowers.github.io/weather-icons/)
 - [App Mockup](https://app-mockup.com), [photopea](http://photopea.com) (for screenshots)
->>>>>>> 33fce9ecf71489bea8561c588421432cc66acf26
