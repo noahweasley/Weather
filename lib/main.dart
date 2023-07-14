@@ -4,7 +4,6 @@ import 'package:flutter_weather/src/api/api_keys.dart';
 import 'package:flutter_weather/src/bloc/weather_bloc_observre.dart';
 import 'package:flutter_weather/src/screens/routes.dart';
 import 'package:flutter_weather/src/screens/weather_screen.dart';
-import 'package:bloc/bloc.dart';
 import 'package:flutter_weather/src/themes.dart';
 import 'package:flutter_weather/src/utils/constants.dart';
 import 'package:flutter_weather/src/utils/converters.dart';
@@ -33,15 +32,13 @@ void main() {
 class WeatherApp extends StatelessWidget {
   final WeatherRepository weatherRepository;
 
-  WeatherApp({Key key, @required this.weatherRepository})
-      : assert(weatherRepository != null),
-        super(key: key);
+  WeatherApp({Key? key, required this.weatherRepository}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Weather App',
-      theme: AppStateContainer.of(context).theme,
+      theme: AppStateContainer.of(context)?.theme,
       home: BlocProvider(
         create: (context) => WeatherBloc(weatherRepository: weatherRepository),
         child: WeatherScreen(),
@@ -57,21 +54,20 @@ class WeatherApp extends StatelessWidget {
 class AppStateContainer extends StatefulWidget {
   final Widget child;
 
-  AppStateContainer({@required this.child});
+  AppStateContainer({required this.child});
 
   @override
   _AppStateContainerState createState() => _AppStateContainerState();
 
-  static _AppStateContainerState of(BuildContext context) {
-    var widget =
-        context.dependOnInheritedWidgetOfExactType<_InheritedStateContainer>();
-    return widget.data;
+  static _AppStateContainerState? of(BuildContext context) {
+    var widget = context.dependOnInheritedWidgetOfExactType<_InheritedStateContainer>();
+    return widget?.data;
   }
 }
 
 class _AppStateContainerState extends State<AppStateContainer> {
   ThemeData _theme = Themes.getTheme(Themes.DARK_THEME_CODE);
-  int themeCode = Themes.DARK_THEME_CODE;
+  int? themeCode = Themes.DARK_THEME_CODE;
   TemperatureUnit temperatureUnit = TemperatureUnit.celsius;
 
   @override
@@ -79,11 +75,9 @@ class _AppStateContainerState extends State<AppStateContainer> {
     super.initState();
     SharedPreferences.getInstance().then((sharedPref) {
       setState(() {
-        themeCode = sharedPref.getInt(CONSTANTS.SHARED_PREF_KEY_THEME) ??
-            Themes.DARK_THEME_CODE;
-        temperatureUnit = TemperatureUnit.values[
-            sharedPref.getInt(CONSTANTS.SHARED_PREF_KEY_TEMPERATURE_UNIT) ??
-                TemperatureUnit.celsius.index];
+        themeCode = sharedPref.getInt(CONSTANTS.SHARED_PREF_KEY_THEME) ?? Themes.DARK_THEME_CODE;
+        temperatureUnit = TemperatureUnit
+            .values[sharedPref.getInt(CONSTANTS.SHARED_PREF_KEY_TEMPERATURE_UNIT) ?? TemperatureUnit.celsius.index];
         this._theme = Themes.getTheme(themeCode);
       });
     });
@@ -91,7 +85,7 @@ class _AppStateContainerState extends State<AppStateContainer> {
 
   @override
   Widget build(BuildContext context) {
-    print(theme.accentColor);
+    print(theme.colorScheme.secondary);
     return _InheritedStateContainer(
       data: this,
       child: widget.child,
@@ -100,13 +94,13 @@ class _AppStateContainerState extends State<AppStateContainer> {
 
   ThemeData get theme => _theme;
 
-  updateTheme(int themeCode) {
+  updateTheme(int? themeCode) {
     setState(() {
       _theme = Themes.getTheme(themeCode);
       this.themeCode = themeCode;
     });
     SharedPreferences.getInstance().then((sharedPref) {
-      sharedPref.setInt(CONSTANTS.SHARED_PREF_KEY_THEME, themeCode);
+      sharedPref.setInt(CONSTANTS.SHARED_PREF_KEY_THEME, themeCode ?? Themes.DARK_THEME_CODE);
     });
   }
 
@@ -124,9 +118,9 @@ class _InheritedStateContainer extends InheritedWidget {
   final _AppStateContainerState data;
 
   const _InheritedStateContainer({
-    Key key,
-    @required this.data,
-    @required Widget child,
+    Key? key,
+    required this.data,
+    required Widget child,
   }) : super(key: key, child: child);
 
   @override

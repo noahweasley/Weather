@@ -1,5 +1,4 @@
 import 'package:flutter_weather/src/model/weather.dart';
-import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class WeatherState extends Equatable {
@@ -16,7 +15,7 @@ class WeatherLoading extends WeatherState {}
 class WeatherLoaded extends WeatherState {
   final Weather weather;
 
-  WeatherLoaded({@required this.weather}) : assert(weather != null);
+  WeatherLoaded({required this.weather});
 
   @override
   List<Object> get props => [weather];
@@ -25,7 +24,7 @@ class WeatherLoaded extends WeatherState {
 class WeatherError extends WeatherState {
   final int errorCode;
 
-  WeatherError({@required this.errorCode}) : assert(errorCode != null);
+  WeatherError({required this.errorCode});
 
   @override
   List<Object> get props => [errorCode];

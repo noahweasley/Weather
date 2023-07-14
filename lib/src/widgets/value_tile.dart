@@ -9,24 +9,20 @@ import 'package:flutter_weather/src/widgets/empty_widget.dart';
 class ValueTile extends StatelessWidget {
   final String label;
   final String value;
-  final IconData iconData;
+  final IconData? iconData;
 
   ValueTile(this.label, this.value, {this.iconData});
 
   @override
   Widget build(BuildContext context) {
-    ThemeData appTheme = AppStateContainer.of(context).theme;
+    ThemeData? appTheme = AppStateContainer.of(context)?.theme;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Text(
           this.label,
-          style: TextStyle(
-              color: AppStateContainer.of(context)
-                  .theme
-                  .accentColor
-                  .withAlpha(80)),
+          style: TextStyle(color: AppStateContainer.of(context)?.theme.colorScheme.secondary.withAlpha(80)),
         ),
         SizedBox(
           height: 5,
@@ -34,7 +30,7 @@ class ValueTile extends StatelessWidget {
         this.iconData != null
             ? Icon(
                 iconData,
-                color: appTheme.accentColor,
+                color: appTheme?.colorScheme.secondary,
                 size: 20,
               )
             : EmptyWidget(),
@@ -43,7 +39,7 @@ class ValueTile extends StatelessWidget {
         ),
         Text(
           this.value,
-          style: TextStyle(color: appTheme.accentColor),
+          style: TextStyle(color: appTheme?.colorScheme.secondary),
         ),
       ],
     );

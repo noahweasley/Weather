@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_weather/src/api/http_exception.dart';
 import 'package:flutter_weather/src/model/weather.dart';
-import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 
 /// Wrapper around the open weather map api
@@ -11,15 +10,11 @@ class WeatherApiClient {
   final apiKey;
   final http.Client httpClient;
 
-  WeatherApiClient({@required this.httpClient, this.apiKey})
-      : assert(httpClient != null),
-        assert(apiKey != null);
+  WeatherApiClient({required this.httpClient, required this.apiKey});
 
   Uri _buildUri(String endpoint, Map<String, dynamic> queryParameters) {
     var query = {'appid': apiKey};
-    if (queryParameters != null) {
-      query = query..addAll(queryParameters);
-    }
+    query = query..addAll(queryParameters);
 
     var uri = Uri(
       scheme: 'http',
@@ -33,8 +28,7 @@ class WeatherApiClient {
     return uri;
   }
 
-  Future<String> getCityNameFromLocation(
-      {double latitude, double longitude}) async {
+  Future<String> getCityNameFromLocation({double? latitude, double? longitude}) async {
     final uri = _buildUri('weather', {
       'lat': latitude.toString(),
       'lon': longitude.toString(),

@@ -9,46 +9,46 @@ import 'package:intl/intl.dart';
 class WeatherWidget extends StatelessWidget {
   final Weather weather;
 
-  WeatherWidget({this.weather}) : assert(weather != null);
+  WeatherWidget({required this.weather});
 
   @override
   Widget build(BuildContext context) {
-    ThemeData appTheme = AppStateContainer.of(context).theme;
+    ThemeData? appTheme = AppStateContainer.of(context)?.theme;
 
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(
-            this.weather.cityName.toUpperCase(),
+            this.weather.cityName!.toUpperCase(),
             style: TextStyle(
               fontSize: 25,
               letterSpacing: 5,
-              color: appTheme.accentColor,
+              color: appTheme?.colorScheme.secondary,
               fontWeight: FontWeight.w900,
             ),
           ),
           SizedBox(height: 20),
           Text(
-            this.weather.description.toUpperCase(),
+            this.weather.description?.toUpperCase() ?? "",
             style: TextStyle(
               fontSize: 15,
               letterSpacing: 5,
               fontWeight: FontWeight.w100,
-              color: appTheme.accentColor,
+              color: appTheme?.colorScheme.secondary,
             ),
           ),
           WeatherSwipePager(weather: weather),
           Padding(
             child: Divider(
-              color: appTheme.accentColor.withAlpha(50),
+              color: appTheme?.colorScheme.secondary.withAlpha(50),
             ),
             padding: EdgeInsets.all(10),
           ),
           ForecastHorizontal(weathers: weather.forecast),
           Padding(
             child: Divider(
-              color: appTheme.accentColor.withAlpha(50),
+              color: appTheme?.colorScheme.secondary.withAlpha(50),
             ),
             padding: EdgeInsets.all(10),
           ),
@@ -60,42 +60,32 @@ class WeatherWidget extends StatelessWidget {
                   child: Container(
                 width: 1,
                 height: 30,
-                color: AppStateContainer.of(context)
-                    .theme
-                    .accentColor
-                    .withAlpha(50),
+                color: AppStateContainer.of(context)?.theme.colorScheme.secondary.withAlpha(50),
               )),
             ),
             ValueTile(
-                "sunrise",
-                DateFormat('h:m a').format(DateTime.fromMillisecondsSinceEpoch(
-                    this.weather.sunrise * 1000))),
+                "sunrise", DateFormat('h:m a').format(DateTime.fromMillisecondsSinceEpoch(this.weather.sunrise! * 1000))),
             Padding(
               padding: const EdgeInsets.only(left: 15, right: 15),
               child: Center(
                   child: Container(
                 width: 1,
                 height: 30,
-                color: AppStateContainer.of(context)
-                    .theme
-                    .accentColor
-                    .withAlpha(50),
+                color: AppStateContainer.of(context)?.theme.colorScheme.secondary.withAlpha(50),
               )),
             ),
             ValueTile(
                 "sunset",
-                DateFormat('h:m a').format(DateTime.fromMillisecondsSinceEpoch(
-                    this.weather.sunset * 1000))),
+                DateFormat('h:m a').format(
+                  DateTime.fromMillisecondsSinceEpoch(this.weather.sunset! * 1000),
+                )),
             Padding(
               padding: const EdgeInsets.only(left: 15, right: 15),
               child: Center(
                   child: Container(
                 width: 1,
                 height: 30,
-                color: AppStateContainer.of(context)
-                    .theme
-                    .accentColor
-                    .withAlpha(50),
+                color: AppStateContainer.of(context)?.theme.colorScheme.secondary.withAlpha(50),
               )),
             ),
             ValueTile("humidity", '${this.weather.humidity}%'),

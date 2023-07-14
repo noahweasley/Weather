@@ -6,16 +6,16 @@ import 'package:flutter_weather/src/utils/converters.dart';
 class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ThemeData appTheme = AppStateContainer.of(context).theme;
+    ThemeData? appTheme = AppStateContainer.of(context)?.theme;
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: appTheme.primaryColor,
+        backgroundColor: appTheme?.primaryColor,
         title: Text("Settings"),
       ),
       body: Container(
         padding: EdgeInsets.only(left: 10, right: 10, top: 15),
-        color: appTheme.primaryColor,
+        color: appTheme?.primaryColor,
         child: ListView(
           children: <Widget>[
             Padding(
@@ -23,7 +23,7 @@ class SettingsScreen extends StatelessWidget {
               child: Text(
                 "Theme",
                 style: TextStyle(
-                  color: appTheme.accentColor,
+                  color: appTheme?.colorScheme.secondary,
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                 ),
@@ -31,12 +31,8 @@ class SettingsScreen extends StatelessWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8), topRight: Radius.circular(8)),
-                color: AppStateContainer.of(context)
-                    .theme
-                    .accentColor
-                    .withOpacity(0.1),
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+                color: AppStateContainer.of(context)?.theme.colorScheme.secondary.withOpacity(0.1),
               ),
               padding: EdgeInsets.only(left: 10, right: 10),
               child: Row(
@@ -44,32 +40,27 @@ class SettingsScreen extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     "Dark",
-                    style: TextStyle(color: appTheme.accentColor),
+                    style: TextStyle(color: appTheme?.colorScheme.secondary),
                   ),
                   Radio(
                     value: Themes.DARK_THEME_CODE,
-                    groupValue: AppStateContainer.of(context).themeCode,
+                    groupValue: AppStateContainer.of(context)?.themeCode,
                     onChanged: (value) {
-                      AppStateContainer.of(context).updateTheme(value);
+                      AppStateContainer.of(context)?.updateTheme(value as int);
                     },
-                    activeColor: appTheme.accentColor,
+                    activeColor: appTheme?.colorScheme.secondary,
                   )
                 ],
               ),
             ),
             Divider(
-              color: appTheme.primaryColor,
+              color: appTheme?.primaryColor,
               height: 1,
             ),
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(8),
-                    bottomRight: Radius.circular(8)),
-                color: AppStateContainer.of(context)
-                    .theme
-                    .accentColor
-                    .withOpacity(0.1),
+                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8)),
+                color: AppStateContainer.of(context)?.theme.colorScheme.secondary.withOpacity(0.1),
               ),
               padding: EdgeInsets.only(left: 10, right: 10),
               child: Row(
@@ -77,26 +68,25 @@ class SettingsScreen extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     "Light",
-                    style: TextStyle(color: appTheme.accentColor),
+                    style: TextStyle(color: appTheme?.colorScheme.secondary),
                   ),
                   Radio(
                     value: Themes.LIGHT_THEME_CODE,
-                    groupValue: AppStateContainer.of(context).themeCode,
+                    groupValue: AppStateContainer.of(context)?.themeCode,
                     onChanged: (value) {
-                      AppStateContainer.of(context).updateTheme(value);
+                      AppStateContainer.of(context)?.updateTheme(value as int?);
                     },
-                    activeColor: appTheme.accentColor,
+                    activeColor: appTheme?.colorScheme.secondary,
                   )
                 ],
               ),
             ),
             Padding(
-              padding:
-                  const EdgeInsets.only(top: 15, left: 8, right: 8, bottom: 8),
+              padding: const EdgeInsets.only(top: 15, left: 8, right: 8, bottom: 8),
               child: Text(
                 "Unit",
                 style: TextStyle(
-                  color: appTheme.accentColor,
+                  color: appTheme?.colorScheme.secondary,
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                 ),
@@ -104,12 +94,8 @@ class SettingsScreen extends StatelessWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8), topRight: Radius.circular(8)),
-                color: AppStateContainer.of(context)
-                    .theme
-                    .accentColor
-                    .withOpacity(0.1),
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+                color: AppStateContainer.of(context)?.theme.colorScheme.secondary.withOpacity(0.1),
               ),
               padding: EdgeInsets.only(left: 10, right: 10),
               child: Row(
@@ -117,64 +103,52 @@ class SettingsScreen extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     "Celsius",
-                    style: TextStyle(color: appTheme.accentColor),
+                    style: TextStyle(color: appTheme?.colorScheme.secondary),
                   ),
                   Radio(
                     value: TemperatureUnit.celsius.index,
-                    groupValue:
-                        AppStateContainer.of(context).temperatureUnit.index,
+                    groupValue: AppStateContainer.of(context)?.temperatureUnit.index,
                     onChanged: (value) {
-                      AppStateContainer.of(context)
-                          .updateTemperatureUnit(TemperatureUnit.values[value]);
+                      AppStateContainer.of(context)?.updateTemperatureUnit(TemperatureUnit.values[value as int? ?? 0]);
                     },
-                    activeColor: appTheme.accentColor,
+                    activeColor: appTheme?.colorScheme.secondary,
                   )
                 ],
               ),
             ),
             Divider(
-              color: appTheme.primaryColor,
+              color: appTheme?.primaryColor,
               height: 1,
             ),
             Container(
-              color: AppStateContainer.of(context)
-                  .theme
-                  .accentColor
-                  .withOpacity(0.1),
+              color: AppStateContainer.of(context)?.theme.colorScheme.secondary.withOpacity(0.1),
               padding: EdgeInsets.only(left: 10, right: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
                     "Fahrenheit",
-                    style: TextStyle(color: appTheme.accentColor),
+                    style: TextStyle(color: appTheme?.colorScheme.secondary),
                   ),
                   Radio(
                     value: TemperatureUnit.fahrenheit.index,
-                    groupValue:
-                        AppStateContainer.of(context).temperatureUnit.index,
+                    groupValue: AppStateContainer.of(context)?.temperatureUnit.index,
                     onChanged: (value) {
-                      AppStateContainer.of(context)
-                          .updateTemperatureUnit(TemperatureUnit.values[value]);
+                      AppStateContainer.of(context)?.updateTemperatureUnit(TemperatureUnit.values[value as int? ?? 0]);
                     },
-                    activeColor: appTheme.accentColor,
+                    activeColor: appTheme?.colorScheme.secondary,
                   )
                 ],
               ),
             ),
             Divider(
-              color: appTheme.primaryColor,
+              color: appTheme?.primaryColor,
               height: 1,
             ),
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(8),
-                    bottomRight: Radius.circular(8)),
-                color: AppStateContainer.of(context)
-                    .theme
-                    .accentColor
-                    .withOpacity(0.1),
+                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8)),
+                color: AppStateContainer.of(context)?.theme.primaryColor.withOpacity(0.1),
               ),
               padding: EdgeInsets.only(left: 10, right: 10),
               child: Row(
@@ -182,17 +156,15 @@ class SettingsScreen extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     "Kelvin",
-                    style: TextStyle(color: appTheme.accentColor),
+                    style: TextStyle(color: appTheme?.colorScheme.secondary),
                   ),
                   Radio(
                     value: TemperatureUnit.kelvin.index,
-                    groupValue:
-                        AppStateContainer.of(context).temperatureUnit.index,
+                    groupValue: AppStateContainer.of(context)?.temperatureUnit.index,
                     onChanged: (value) {
-                      AppStateContainer.of(context)
-                          .updateTemperatureUnit(TemperatureUnit.values[value]);
+                      AppStateContainer.of(context)?.updateTemperatureUnit(TemperatureUnit.values[value as int? ?? 0]);
                     },
-                    activeColor: appTheme.accentColor,
+                    activeColor: appTheme?.colorScheme.secondary,
                   )
                 ],
               ),

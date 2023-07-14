@@ -5,13 +5,12 @@ abstract class WeatherEvent extends Equatable {
 }
 
 class FetchWeather extends WeatherEvent {
-  final String cityName;
-  final double longitude;
-  final double latitude;
+  final String? cityName;
+  final double? longitude;
+  final double? latitude;
 
-  FetchWeather({this.cityName, this.longitude, this.latitude})
-      : assert(cityName != null || longitude != null || latitude != null);
+  FetchWeather({this.cityName, this.longitude, this.latitude});
 
   @override
-  List<Object> get props => [cityName, longitude, latitude];
+  List<Object?> get props => [cityName, longitude, latitude];
 }

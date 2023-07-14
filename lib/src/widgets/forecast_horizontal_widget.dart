@@ -9,8 +9,8 @@ import 'package:intl/intl.dart';
 /// Shows DateTime, Weather Condition icon and Temperature
 class ForecastHorizontal extends StatelessWidget {
   const ForecastHorizontal({
-    Key key,
-    @required this.weathers,
+    Key? key,
+    required this.weathers,
   }) : super(key: key);
 
   final List<Weather> weathers;
@@ -24,21 +24,23 @@ class ForecastHorizontal extends StatelessWidget {
         shrinkWrap: true,
         itemCount: this.weathers.length,
         separatorBuilder: (context, index) => Divider(
-              height: 100,
-              color: Colors.white,
-            ),
+          height: 100,
+          color: Colors.white,
+        ),
         padding: EdgeInsets.only(left: 10, right: 10),
         itemBuilder: (context, index) {
           final item = this.weathers[index];
           return Padding(
             padding: const EdgeInsets.only(left: 10, right: 10),
             child: Center(
-                child: ValueTile(
-              DateFormat('E, ha').format(
-                  DateTime.fromMillisecondsSinceEpoch(item.time * 1000)),
-              '${item.temperature.as(AppStateContainer.of(context).temperatureUnit).round()}°',
-              iconData: item.getIconData(),
-            )),
+              child: ValueTile(
+                DateFormat('E, ha').format(
+                  DateTime.fromMillisecondsSinceEpoch(item.time * 1000),
+                ),
+                '${item.temperature.as(AppStateContainer.of(context)?.temperatureUnit).round()}°',
+                iconData: item.getIconData(),
+              ),
+            ),
           );
         },
       ),

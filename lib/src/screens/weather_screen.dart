@@ -17,12 +17,11 @@ class WeatherScreen extends StatefulWidget {
   _WeatherScreenState createState() => _WeatherScreenState();
 }
 
-class _WeatherScreenState extends State<WeatherScreen>
-    with TickerProviderStateMixin {
-  WeatherBloc _weatherBloc;
-  String _cityName = 'bengaluru';
-  Animation<double> _fadeAnimation;
-  AnimationController _fadeController;
+class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateMixin {
+  late WeatherBloc _weatherBloc;
+  String? _cityName = 'bengaluru';
+  late Animation<double> _fadeAnimation;
+  late AnimationController _fadeController;
 
   @override
   void initState() {
@@ -47,11 +46,11 @@ class _WeatherScreenState extends State<WeatherScreen>
 
   @override
   Widget build(BuildContext context) {
-    ThemeData appTheme = AppStateContainer.of(context).theme;
+    ThemeData? appTheme = AppStateContainer.of(context)?.theme;
 
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: appTheme.primaryColor,
+          backgroundColor: appTheme?.primaryColor,
           elevation: 0,
           title: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -59,7 +58,7 @@ class _WeatherScreenState extends State<WeatherScreen>
               Text(
                 DateFormat('EEEE, d MMMM yyyy').format(DateTime.now()),
                 style: TextStyle(
-                  color: appTheme.accentColor.withAlpha(80),
+                  color: appTheme?.colorScheme.secondary.withAlpha(80),
                   fontSize: 14,
                 ),
               )
@@ -69,7 +68,7 @@ class _WeatherScreenState extends State<WeatherScreen>
             PopupMenuButton<OptionsMenu>(
                 child: Icon(
                   Icons.more_vert,
-                  color: appTheme.accentColor,
+                  color: appTheme?.colorScheme.secondary,
                 ),
                 onSelected: this._onOptionMenuItemSelected,
                 itemBuilder: (context) => <PopupMenuEntry<OptionsMenu>>[
@@ -88,11 +87,10 @@ class _WeatherScreenState extends State<WeatherScreen>
         body: Material(
           child: Container(
             constraints: BoxConstraints.expand(),
-            decoration: BoxDecoration(color: appTheme.primaryColor),
+            decoration: BoxDecoration(color: appTheme?.primaryColor),
             child: FadeTransition(
               opacity: _fadeAnimation,
-              child: BlocBuilder<WeatherBloc, WeatherState>(
-                  builder: (_, WeatherState weatherState) {
+              child: BlocBuilder<WeatherBloc, WeatherState>(builder: (_, WeatherState weatherState) {
                 _fadeController.reset();
                 _fadeController.forward();
 
@@ -101,13 +99,11 @@ class _WeatherScreenState extends State<WeatherScreen>
                   return WeatherWidget(
                     weather: weatherState.weather,
                   );
-                } else if (weatherState is WeatherError ||
-                    weatherState is WeatherEmpty) {
+                } else if (weatherState is WeatherError || weatherState is WeatherEmpty) {
                   String errorText = 'There was an error fetching weather data';
                   if (weatherState is WeatherError) {
                     if (weatherState.errorCode == 404) {
-                      errorText =
-                          'We have trouble fetching weather for $_cityName';
+                      errorText = 'We have trouble fetching weather for $_cityName';
                     }
                   }
                   return Column(
@@ -129,7 +125,7 @@ class _WeatherScreenState extends State<WeatherScreen>
                       ),
                       TextButton(
                         style: TextButton.styleFrom(
-                          primary: appTheme.accentColor,
+                          foregroundColor: appTheme?.colorScheme.secondary,
                           elevation: 1,
                         ),
                         child: Text("Try Again"),
@@ -140,7 +136,7 @@ class _WeatherScreenState extends State<WeatherScreen>
                 } else if (weatherState is WeatherLoading) {
                   return Center(
                     child: CircularProgressIndicator(
-                      backgroundColor: appTheme.primaryColor,
+                      backgroundColor: appTheme?.primaryColor,
                     ),
                   );
                 }
@@ -158,7 +154,7 @@ class _WeatherScreenState extends State<WeatherScreen>
         context: context,
         barrierDismissible: true,
         builder: (BuildContext context) {
-          ThemeData appTheme = AppStateContainer.of(context).theme;
+          ThemeData? appTheme = AppStateContainer.of(context)?.theme;
 
           return AlertDialog(
             backgroundColor: Colors.white,
@@ -167,7 +163,7 @@ class _WeatherScreenState extends State<WeatherScreen>
               TextButton(
                 child: Text('ok'),
                 style: TextButton.styleFrom(
-                  primary: appTheme.accentColor,
+                  foregroundColor: appTheme?.colorScheme.secondary,
                   elevation: 1,
                 ),
                 onPressed: () {
@@ -237,9 +233,8 @@ class _WeatherScreenState extends State<WeatherScreen>
       case PermissionStatus.limited:
       case PermissionStatus.granted:
         print('getting location');
-        Position position = await Geolocator.getCurrentPosition(
-            desiredAccuracy: LocationAccuracy.low,
-            timeLimit: Duration(seconds: 2));
+        Position position =
+            await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low, timeLimit: Duration(seconds: 2));
 
         print(position.toString());
 
@@ -256,17 +251,16 @@ class _WeatherScreenState extends State<WeatherScreen>
         context: context,
         barrierDismissible: true,
         builder: (BuildContext context) {
-          ThemeData appTheme = AppStateContainer.of(context).theme;
+          ThemeData? appTheme = AppStateContainer.of(context)?.theme;
 
           return AlertDialog(
             backgroundColor: Colors.white,
-            title: Text('Location is disabled :(',
-                style: TextStyle(color: Colors.black)),
+            title: Text('Location is disabled :(', style: TextStyle(color: Colors.black)),
             actions: <Widget>[
               TextButton(
                 child: Text('Enable!'),
                 style: TextButton.styleFrom(
-                  primary: appTheme.accentColor,
+                  foregroundColor: appTheme?.colorScheme.secondary,
                   elevation: 1,
                 ),
                 onPressed: () {
