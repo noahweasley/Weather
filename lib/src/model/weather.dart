@@ -22,21 +22,22 @@ class Weather {
 
   List<Weather> forecast;
 
-  Weather(
-      {this.id,
-      required this.time,
-      this.sunrise,
-      this.sunset,
-      this.humidity,
-      this.description,
-      required this.iconCode,
-      this.main,
-      this.cityName,
-      this.windSpeed,
-      required this.temperature,
-      this.maxTemperature,
-      this.minTemperature,
-      this.forecast = const []});
+  Weather({
+    this.id,
+    required this.time,
+    this.sunrise,
+    this.sunset,
+    this.humidity,
+    this.description,
+    required this.iconCode,
+    this.main,
+    this.cityName,
+    this.windSpeed,
+    required this.temperature,
+    this.maxTemperature,
+    this.minTemperature,
+    this.forecast = const [],
+  });
 
   static Weather fromJson(Map<String, dynamic> json) {
     final weather = json['weather'][0];
