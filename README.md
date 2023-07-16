@@ -1,6 +1,6 @@
 # Flutter Weather
 
-A Flutter application to view current weather status.
+A cross platform mobile app to display current weather of any city and predicts 5 consecutive days weather conditions.
 
 ![preview](./screenshots/preview.png?raw=true "preview")
 
