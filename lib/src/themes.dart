@@ -5,6 +5,7 @@ class Themes {
   static const LIGHT_THEME_CODE = 1;
 
   static final _dark = ThemeData(
+      primaryColorLight: Color.fromARGB(255, 63, 63, 63),
       primarySwatch: MaterialColor(
         Colors.black.value,
         const <int, Color>{
@@ -26,6 +27,7 @@ class Themes {
       disabledColor: Colors.green);
 
   static final _light = ThemeData(
+      primaryColorLight: Color.fromARGB(255, 243, 243, 243),
       primarySwatch: MaterialColor(
         Colors.white.value,
         const <int, Color>{

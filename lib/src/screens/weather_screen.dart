@@ -7,6 +7,7 @@ import 'package:flutter_weather/src/widgets/weather_widget.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'dart:async';
 
 import '../bloc/weather_bloc.dart';
 
@@ -28,6 +29,9 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
     super.initState();
 
     _weatherBloc = BlocProvider.of<WeatherBloc>(context);
+
+    const refreshInterval = Duration(minutes: 1);
+    Timer.periodic(refreshInterval, (Timer t) => _weatherBloc.add(RefreshWeather(cityName: _cityName)));
 
     _fetchWeatherWithLocation().catchError((error) {
       _fetchWeatherWithCity();
@@ -65,7 +69,16 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
             ],
           ),
           actions: <Widget>[
+            IconButton(
+              tooltip: "Refresh",
+              onPressed: () => _weatherBloc.add(FetchWeather(cityName: _cityName)),
+              icon: Icon(
+                Icons.refresh,
+                color: appTheme?.colorScheme.secondary,
+              ),
+            ),
             PopupMenuButton<OptionsMenu>(
+              color: appTheme?.primaryColorLight,
               child: Icon(
                 Icons.more_vert,
                 color: appTheme?.colorScheme.secondary,
@@ -74,11 +87,21 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
               itemBuilder: (context) => <PopupMenuEntry<OptionsMenu>>[
                 PopupMenuItem<OptionsMenu>(
                   value: OptionsMenu.changeCity,
-                  child: Text("Change city"),
+                  child: Text(
+                    "Change city",
+                    style: TextStyle(
+                      color: appTheme?.colorScheme.secondary,
+                    ),
+                  ),
                 ),
                 PopupMenuItem<OptionsMenu>(
                   value: OptionsMenu.settings,
-                  child: Text("Settings"),
+                  child: Text(
+                    "Settings",
+                    style: TextStyle(
+                      color: appTheme?.colorScheme.secondary,
+                    ),
+                  ),
                 ),
               ],
             )
@@ -96,10 +119,12 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
                 _fadeController.forward();
 
                 if (weatherState is WeatherLoaded) {
-                  this._cityName = weatherState.weather.cityName;
-                  return WeatherWidget(
-                    weather: weatherState.weather,
-                  );
+                  if (weatherState.weather != null) {
+                    this._cityName = weatherState.weather!.cityName;
+                    return WeatherWidget(
+                      weather: weatherState.weather!,
+                    );
+                  }
                 } else if (weatherState is WeatherError || weatherState is WeatherEmpty) {
                   String errorText = 'There was an error fetching weather data';
                   if (weatherState is WeatherError) {
@@ -165,8 +190,11 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
           ThemeData? appTheme = AppStateContainer.of(context)?.theme;
 
           return AlertDialog(
-            backgroundColor: Colors.white,
-            title: Text('Change city', style: TextStyle(color: Colors.black)),
+            backgroundColor: appTheme?.primaryColorLight,
+            title: Text('Change city',
+                style: TextStyle(
+                  color: appTheme?.colorScheme.secondary,
+                )),
             actions: <Widget>[
               TextButton(
                 child: Text('ok'),
@@ -187,7 +215,9 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
               },
               decoration: InputDecoration(
                   hintText: 'Name of your city',
-                  hintStyle: TextStyle(color: Colors.black),
+                  hintStyle: TextStyle(
+                    color: appTheme?.colorScheme.secondary,
+                  ),
                   suffixIcon: GestureDetector(
                     onTap: () {
                       _fetchWeatherWithLocation().catchError((error) {
@@ -197,11 +227,13 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
                     },
                     child: Icon(
                       Icons.my_location,
-                      color: Colors.black,
+                      color: appTheme?.colorScheme.secondary,
                       size: 16,
                     ),
                   )),
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(
+                color: appTheme?.colorScheme.secondary,
+              ),
               cursorColor: Colors.black,
             ),
           );
@@ -262,7 +294,7 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
           ThemeData? appTheme = AppStateContainer.of(context)?.theme;
 
           return AlertDialog(
-            backgroundColor: Colors.white,
+            backgroundColor: appTheme?.primaryColorLight,
             title: Text('Location is disabled :(', style: TextStyle(color: Colors.black)),
             actions: <Widget>[
               TextButton(
