@@ -30,9 +30,6 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
 
     _weatherBloc = BlocProvider.of<WeatherBloc>(context);
 
-    const refreshInterval = Duration(minutes: 1);
-    Timer.periodic(refreshInterval, (Timer t) => _weatherBloc.add(RefreshWeather(cityName: _cityName)));
-
     _fetchWeatherWithLocation().catchError((error) {
       _fetchWeatherWithCity();
     });
@@ -119,12 +116,10 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
                 _fadeController.forward();
 
                 if (weatherState is WeatherLoaded) {
-                  if (weatherState.weather != null) {
-                    this._cityName = weatherState.weather!.cityName;
-                    return WeatherWidget(
-                      weather: weatherState.weather!,
-                    );
-                  }
+                  this._cityName = weatherState.weather.cityName;
+                  return WeatherWidget(
+                    weather: weatherState.weather,
+                  );
                 } else if (weatherState is WeatherError || weatherState is WeatherEmpty) {
                   String errorText = 'There was an error fetching weather data';
                   if (weatherState is WeatherError) {
