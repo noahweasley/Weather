@@ -1,5 +1,5 @@
 name: flutter_weather
-description: A Flutter application to view current weather status.
+description: A cross platform mobile app to display current weather of any city and predicts 5 consecutive days weather conditions.
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
