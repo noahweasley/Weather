@@ -7,7 +7,6 @@ import 'package:flutter_weather/src/widgets/weather_widget.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'dart:async';
 
 import '../bloc/weather_bloc.dart';
 
@@ -268,8 +267,11 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
       case PermissionStatus.limited:
       case PermissionStatus.granted:
         print('getting location');
-        Position position =
-            await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low, timeLimit: Duration(seconds: 2));
+
+        Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.low,
+          timeLimit: Duration(seconds: 2),
+        );
 
         print(position.toString());
 
@@ -277,6 +279,9 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
           longitude: position.longitude,
           latitude: position.latitude,
         ));
+        break;
+      case PermissionStatus.provisional:
+        // TODO: Handle this case.
         break;
     }
   }

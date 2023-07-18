@@ -1,4 +1,3 @@
-// import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +13,7 @@ class TemperatureLineChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(40.0),
+      padding: const EdgeInsets.all(4.0),
       child: LineChart(
         LineChartData(
           lineBarsData: weathers,

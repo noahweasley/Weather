@@ -3,27 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_weather/src/utils/WeatherIconMapper.dart';
 import 'package:flutter_weather/src/utils/converters.dart';
 
-extension WeatherForecastExtension on List<Weather> {
-  List<LineChartBarData> toChartData() {
-    List<Weather> w = this;
-
-    List<FlSpot> _spots = w.map((e) {
-      // TODO: fix the line graph plot
-      return FlSpot((DateTime.now().millisecondsSinceEpoch.abs() - e.time) / 1000, e.temperature.celsius * 10);
-    }).toList();
-
-    return [
-      LineChartBarData(
-        spots: _spots,
-        isCurved: true,
-        isStrokeCapRound: true,
-        dotData: const FlDotData(show: false),
-        belowBarData: BarAreaData(show: false),
-      )
-    ];
-  }
-}
-
 class Weather {
   int? id;
   int time;
@@ -43,6 +22,23 @@ class Weather {
   Temperature? minTemperature;
 
   List<Weather> forecast;
+
+  List<LineChartBarData> get temperatureChartData {
+    List<FlSpot> _spots = forecast.map((e) {
+      // TODO: fix the line graph plot
+      return FlSpot((DateTime.now().millisecondsSinceEpoch.abs() - e.time) / 1000, e.temperature.celsius * 10);
+    }).toList();
+
+    return [
+      LineChartBarData(
+        spots: _spots,
+        isCurved: true,
+        isStrokeCapRound: true,
+        dotData: const FlDotData(show: false),
+        belowBarData: BarAreaData(show: false),
+      )
+    ];
+  }
 
   Weather({
     this.id,

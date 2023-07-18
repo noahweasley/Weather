@@ -43,7 +43,7 @@ class WeatherSwipePager extends StatelessWidget {
               ? CurrentConditions(weather: weather)
               : itemIndex == 1
                   ? TemperatureLineChart(
-                      weather.forecast.toChartData(),
+                      weather.temperatureChartData,
                       animate: true,
                     )
                   : EmptyWidget(),
