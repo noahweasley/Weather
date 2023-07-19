@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_weather/main.dart';
-import 'package:flutter_weather/src/widgets/empty_widget.dart';
+import 'package:weather/main.dart';
+import 'package:weather/src/widgets/empty_widget.dart';
 
 /// General utility widget used to render a cell divided into three rows
 /// First row displays [label]

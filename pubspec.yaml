@@ -1,4 +1,4 @@
-name: flutter_weather
+name: weather
 description: A cross platform mobile app to display current weather of any city and predicts 5 consecutive days weather conditions.
 
 # The following defines the version and build number for your application.

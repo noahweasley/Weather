@@ -1,6 +1,6 @@
 {
-    "name": "flutter_weather",
-    "short_name": "flutter_weather",
+    "name": "weather",
+    "short_name": "weather",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

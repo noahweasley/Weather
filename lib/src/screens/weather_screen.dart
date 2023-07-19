@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_weather/main.dart';
-import 'package:flutter_weather/src/bloc/weather_event.dart';
-import 'package:flutter_weather/src/bloc/weather_state.dart';
+import 'package:weather/main.dart';
+import 'package:weather/src/bloc/weather_event.dart';
+import 'package:weather/src/bloc/weather_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_weather/src/widgets/weather_widget.dart';
+import 'package:weather/src/widgets/weather_widget.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';

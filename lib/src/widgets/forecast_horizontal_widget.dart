@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_weather/main.dart';
-import 'package:flutter_weather/src/model/weather.dart';
-import 'package:flutter_weather/src/widgets/value_tile.dart';
+import 'package:weather/main.dart';
+import 'package:weather/src/model/weather.dart';
+import 'package:weather/src/widgets/value_tile.dart';
 import 'package:intl/intl.dart';
 
 /// Renders a horizontal scrolling list of weather conditions

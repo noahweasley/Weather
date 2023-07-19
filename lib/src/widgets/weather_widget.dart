@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_weather/main.dart';
-import 'package:flutter_weather/src/model/weather.dart';
-import 'package:flutter_weather/src/widgets/forecast_horizontal_widget.dart';
-import 'package:flutter_weather/src/widgets/value_tile.dart';
-import 'package:flutter_weather/src/widgets/weather_swipe_pager.dart';
+import 'package:weather/main.dart';
+import 'package:weather/src/model/weather.dart';
+import 'package:weather/src/widgets/forecast_horizontal_widget.dart';
+import 'package:weather/src/widgets/value_tile.dart';
+import 'package:weather/src/widgets/weather_swipe_pager.dart';
 import 'package:intl/intl.dart';
 
 class WeatherWidget extends StatelessWidget {

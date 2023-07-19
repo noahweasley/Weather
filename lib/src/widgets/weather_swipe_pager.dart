@@ -1,10 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_weather/main.dart';
-import 'package:flutter_weather/src/model/weather.dart';
-import 'package:flutter_weather/src/widgets/current_conditions.dart';
-import 'package:flutter_weather/src/widgets/empty_widget.dart';
-import 'package:flutter_weather/src/widgets/temperature_line_chart.dart';
+import 'package:weather/main.dart';
+import 'package:weather/src/model/weather.dart';
+import 'package:weather/src/widgets/current_conditions.dart';
+import 'package:weather/src/widgets/empty_widget.dart';
+import 'package:weather/src/widgets/temperature_line_chart.dart';
 
 class WeatherSwipePager extends StatelessWidget {
   const WeatherSwipePager({
@@ -25,7 +25,7 @@ class WeatherSwipePager extends StatelessWidget {
         options: CarouselOptions(
           height: double.infinity,
           aspectRatio: 16 / 9,
-          viewportFraction: 0.8,
+          viewportFraction: 1,
           initialPage: 0,
           enableInfiniteScroll: true,
           reverse: false,
@@ -43,7 +43,7 @@ class WeatherSwipePager extends StatelessWidget {
               ? CurrentConditions(weather: weather)
               : itemIndex == 1
                   ? TemperatureLineChart(
-                      weather.temperatureChartData,
+                      weather.forecast,
                       animate: true,
                     )
                   : EmptyWidget(),

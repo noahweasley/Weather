@@ -1,11 +1,12 @@
-import 'package:fl_chart/fl_chart.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter_weather/src/utils/WeatherIconMapper.dart';
-import 'package:flutter_weather/src/utils/converters.dart';
+import 'package:weather/src/utils/WeatherIconMapper.dart';
+import 'package:weather/src/utils/converters.dart';
 
 class Weather {
   int? id;
   int time;
+  DateTime get date => DateTime.fromMillisecondsSinceEpoch(time * 1000);
   int? sunrise;
   int? sunset;
   int? humidity;
@@ -22,23 +23,6 @@ class Weather {
   Temperature? minTemperature;
 
   List<Weather> forecast;
-
-  List<LineChartBarData> get temperatureChartData {
-    List<FlSpot> _spots = forecast.map((e) {
-      // TODO: fix the line graph plot
-      return FlSpot((DateTime.now().millisecondsSinceEpoch.abs() - e.time) / 1000, e.temperature.celsius * 10);
-    }).toList();
-
-    return [
-      LineChartBarData(
-        spots: _spots,
-        isCurved: true,
-        isStrokeCapRound: true,
-        dotData: const FlDotData(show: false),
-        belowBarData: BarAreaData(show: false),
-      )
-    ];
-  }
 
   Weather({
     this.id,
@@ -133,5 +117,10 @@ class Weather {
       default:
         return WeatherIcons.clear_day;
     }
+  }
+
+  @override
+  String toString() {
+    return 'Weather(time: $date, temperature: ${temperature.celsius})';
   }
 }

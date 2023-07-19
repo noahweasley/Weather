@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_weather/src/api/api_keys.dart';
-import 'package:flutter_weather/src/bloc/weather_bloc_observre.dart';
-import 'package:flutter_weather/src/screens/routes.dart';
-import 'package:flutter_weather/src/screens/weather_screen.dart';
-import 'package:flutter_weather/src/themes.dart';
-import 'package:flutter_weather/src/utils/constants.dart';
-import 'package:flutter_weather/src/utils/converters.dart';
+import 'package:weather/src/api/api_keys.dart';
+import 'package:weather/src/bloc/weather_bloc_observre.dart';
+import 'package:weather/src/screens/routes.dart';
+import 'package:weather/src/screens/weather_screen.dart';
+import 'package:weather/src/themes.dart';
+import 'package:weather/src/utils/constants.dart';
+import 'package:weather/src/utils/converters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -38,7 +38,7 @@ class WeatherApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Weather App',
+      title: 'Weather',
       theme: AppStateContainer.of(context)?.theme,
       home: BlocProvider(
         create: (context) => WeatherBloc(weatherRepository: weatherRepository),
