@@ -18,67 +18,64 @@ class TemperatureLineChart extends StatelessWidget {
   Widget build(BuildContext context) {
     ThemeData? appTheme = AppStateContainer.of(context)?.theme;
     int dateIndex = 0;
-    
-    return AspectRatio(
-      aspectRatio: 1.70,
-      child: Padding(
-        padding: const EdgeInsets.all(14),
-        child: LineChart(
-          LineChartData(
-            titlesData: FlTitlesData(
-              show: true,
-              rightTitles: const AxisTitles(
-                sideTitles: SideTitles(showTitles: false),
-              ),
-              topTitles: const AxisTitles(
-                sideTitles: SideTitles(showTitles: false),
-              ),
-              bottomTitles: AxisTitles(
-                sideTitles: SideTitles(
-                  showTitles: true,
-                  reservedSize: 30,
-                  interval: 1,
-                  getTitlesWidget: (value, meta) => bottomTitleWidgets(weathersForecasts, appTheme, value, meta),
-                ),
-              ),
-              leftTitles: AxisTitles(
-                sideTitles: SideTitles(
-                  showTitles: true,
-                  interval: 1,
-                  getTitlesWidget: (value, meta) => leftTitleWidgets(weathersForecasts, appTheme, value, meta),
-                  reservedSize: 42,
-                ),
+
+    return Padding(
+      padding: const EdgeInsets.all(14),
+      child: LineChart(
+        LineChartData(
+          titlesData: FlTitlesData(
+            show: true,
+            rightTitles: const AxisTitles(
+              sideTitles: SideTitles(showTitles: false),
+            ),
+            topTitles: const AxisTitles(
+              sideTitles: SideTitles(showTitles: false),
+            ),
+            bottomTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                reservedSize: 30,
+                interval: 1,
+                getTitlesWidget: (value, meta) => bottomTitleWidgets(weathersForecasts, appTheme, value, meta),
               ),
             ),
-            borderData: FlBorderData(
-              show: true,
-              border: Border.all(color: const Color(0xff37434d)),
-            ),
-            minX: 0,
-            maxX: weathersForecasts.length.toDouble(),
-            minY: 0,
-            maxY:  50,
-            lineBarsData: [
-              LineChartBarData(
-                spots: weathersForecasts.map((e) => FlSpot(dateIndex++ as double, e.temperature.celsius)).toList(),
-                isCurved: true,
-                gradient: LinearGradient(
-                  colors: gradientColors,
-                ),
-                barWidth: 5,
-                isStrokeCapRound: true,
-                dotData: const FlDotData(
-                  show: false,
-                ),
-                belowBarData: BarAreaData(
-                  show: true,
-                  gradient: LinearGradient(
-                    colors: gradientColors.map((color) => color.withOpacity(0.3)).toList(),
-                  ),
-                ),
+            leftTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                interval: 1,
+                getTitlesWidget: (value, meta) => leftTitleWidgets(weathersForecasts, appTheme, value, meta),
+                reservedSize: 42,
               ),
-            ],
+            ),
           ),
+          borderData: FlBorderData(
+            show: true,
+            border: Border.all(color: const Color(0xff37434d)),
+          ),
+          minX: 0,
+          maxX: weathersForecasts.length.toDouble(),
+          minY: 0,
+          maxY: 50,
+          lineBarsData: [
+            LineChartBarData(
+              spots: weathersForecasts.map((e) => FlSpot((dateIndex++).toDouble(), e.temperature.celsius)).toList(),
+              isCurved: true,
+              gradient: LinearGradient(
+                colors: gradientColors,
+              ),
+              barWidth: 5,
+              isStrokeCapRound: true,
+              dotData: const FlDotData(
+                show: false,
+              ),
+              belowBarData: BarAreaData(
+                show: true,
+                gradient: LinearGradient(
+                  colors: gradientColors.map((color) => color.withOpacity(0.3)).toList(),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -99,7 +96,7 @@ class TemperatureLineChart extends StatelessWidget {
         text = Text(DateFormat('dd MMM').format(forecast[value.toInt() - 1].date), style: style);
         break;
       default:
-        text =  Text('', style: style);
+        text = Text('', style: style);
         break;
     }
 
@@ -113,7 +110,7 @@ class TemperatureLineChart extends StatelessWidget {
     final style = TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: theme?.colorScheme.secondary);
 
     String text;
-    
+
     switch (value.toInt()) {
       case 1:
         text = '0°';

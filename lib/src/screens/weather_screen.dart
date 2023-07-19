@@ -245,11 +245,11 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
     }
   }
 
-  _fetchWeatherWithCity() {
+  void _fetchWeatherWithCity() {
     _weatherBloc.add(FetchWeather(cityName: _cityName));
   }
 
-  _fetchWeatherWithLocation() async {
+  Future<void> _fetchWeatherWithLocation() async {
     var permissionResult = await Permission.locationWhenInUse.status;
 
     switch (permissionResult) {
@@ -270,7 +270,7 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
 
         Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.low,
-          timeLimit: Duration(seconds: 2),
+          timeLimit: Duration(seconds: 20),
         );
 
         print(position.toString());
