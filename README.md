@@ -2,7 +2,7 @@
 
 A cross platform mobile app to display current weather of any city and predicts 5 consecutive days weather conditions.
 
-![preview](./screenshots/preview.png?raw=true "preview")
+![preview](./screenshots/preview-1.png?raw=true "preview")
 
 ## Features
 
